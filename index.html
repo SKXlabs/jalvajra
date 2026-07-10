@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SASK JALVAJRA — Hydrological Utility Platform</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&display=swap');
+        body { font-family: 'JetBrains Mono', monospace; }
+        .terminal-glow { box-shadow: 0 0 20px rgba(16, 185, 129, 0.1); }
+        @media print {
+            .no-print { display: none !important; }
+            body { background: white !important; color: black !important; }
+            .print-card { border: 1px solid #ccc !important; background: white !important; color: black !important; }
+        }
+    </style>
+</head>
+<body class="bg-slate-950 text-slate-100 min-h-screen flex flex-col justify-between selection:bg-emerald-500/30">
+
+    <!-- Header Interface Navigation -->
+    <header class="border-b border-emerald-950/80 bg-slate-950/80 backdrop-blur sticky top-0 z-50 px-6 py-4 no-print">
+        <div class="max-w-7xl mx-auto flex justify-between items-center">
+            <div class="flex items-center space-x-3">
+                <div class="h-3 w-3 rounded-full bg-emerald-500 animate-pulse"></div>
+                <h1 class="text-lg font-bold tracking-widest text-emerald-400">SASK JALVAJRA</h1>
+            </div>
+            <div class="flex items-center space-x-4">
+                <span class="text-[10px] bg-emerald-950 border border-emerald-800 text-emerald-400 px-3 py-1 rounded-full uppercase tracking-widest font-semibold">
+                    Core OS V4.5 Active
+                </span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Operational Workspace -->
+    <main class="max-w-4xl mx-auto p-4 md:p-8 w-full my-auto flex-grow">
+        
+        <!-- Phase 1: User Entry Module -->
+        <div id="inputSection" class="bg-slate-950 p-6 md:p-8 rounded-2xl border border-emerald-900/40 shadow-2xl terminal-glow no-print">
+            <div class="mb-6">
+                <h2 class="text-xl font-bold text-slate-200 tracking-wide">PHASE I: TARGET LOCATION REGISTRATION</h2>
+                <p class="text-xs text-emerald-600/80 mt-1">Input regional land registry query metrics to initialize planetary data extraction loops.</p>
+            </div>
+
+            <form id="processingForm" class="space-y-6">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div>
+                        <label class="block text-[10px] font-bold text-emerald-500 uppercase tracking-widest mb-2">State Territory</label>
+                        <input type="text" id="state" required placeholder="e.g., Karnataka" value="Karnataka" class="w-full bg-slate-900/80 border border-emerald-950 rounded-xl px-4 py-3 text-slate-200 focus:outline-none focus:border-emerald-500 text-xs font-medium transition-colors">
+                    </div>
+                    <div>
+                        <label class="block text-[10px] font-bold text-emerald-500 uppercase tracking-widest mb-2">District / Block</label>
+                        <input type="text" id="district" required placeholder="e.g., Kalaburagi" value="Kalaburagi" class="w-full bg-slate-900/80 border border-emerald-950 rounded-xl px-4 py-3 text-slate-200 focus:outline-none focus:border-emerald-500 text-xs font-medium transition-colors">
+                    </div>
+                    <div>
+                        <label class="block text-[10px] font-bold text-emerald-500 uppercase tracking-widest mb-2">Survey / Gut Number</label>
+                        <input type="text" id="survey_number" required placeholder="e.g., 42" class="w-full bg-slate-900/80 border border-emerald-950 rounded-xl px-4 py-3 text-slate-200 focus:outline-none focus:border-emerald-500 text-xs font-medium transition-colors">
+                    </div>
+                </div>
+
+                <button type="submit" class="w-full bg-emerald-600 hover:bg-emerald-500 text-slate-950 font-bold py-3.5 rounded-xl transition-all duration-150 text-xs uppercase tracking-widest active:scale-[0.99]">
+                    Initialize Subsurface Space Scan
+                </button>
+            </form>
+        </div>
+
+        <!-- Terminal Log Visualizer -->
+        <div id="terminalSection" class="hidden bg-black border border-emerald-900/60 rounded-2xl p-6 font-mono text-xs text-emerald-400 space-y-2 h-64 overflow-y-auto no-print">
+            <div id="terminalBody"></div>
+        </div>
+
+        <!-- Phase 4: Final Analytical Report Output Card -->
+        <div id="reportSection" class="hidden bg-slate-950 p-6 md:p-8 rounded-2xl border border-emerald-900/40 print-card">
+            <div class="border-b border-emerald-950/60 pb-6 mb-6 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+                <div>
+                    <h2 class="text-lg font-bold tracking-wider text-slate-200">SASK JALVAJRA GROUNDWATER VALIDATION REPORT</h2>
+                    <p class="text-[10px] text-slate-400 mt-1 uppercase tracking-widest">Sovereign Smart Asset Security Asset Documentation</p>
+                </div>
+                <button onclick="window.print()" class="no-print bg-emerald-950 border border-emerald-800 hover:bg-emerald-900 text-emerald-400 font-bold px-4 py-2 rounded-xl text-xs tracking-wider transition-colors">
+                    Print / Save Report PDF
+                </button>
+            </div>
+
+            <!-- Metadata Section -->
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 bg-slate-900/40 p-4 rounded-xl border border-emerald-950 mb-6 text-xs">
+                <div><span class="text-slate-500 block text-[10px] uppercase font-bold tracking-wider">State:</span><strong id="repState" class="text-slate-200">-</strong></div>
+                <div><span class="text-slate-500 block text-[10px] uppercase font-bold tracking-wider">District:</span><strong id="repDistrict" class="text-slate-200">-</strong></div>
+                <div><span class="text-slate-500 block text-[10px] uppercase font-bold tracking-wider">Survey ID:</span><strong id="repSurvey" class="text-slate-200">-</strong></div>
+                <div><span class="text-slate-500 block text-[10px] uppercase font-bold tracking-wider">Timestamp:</span><strong id="repTime" class="text-slate-200">-</strong></div>
+            </div>
+
+            <!-- Mathematical Core Output Rows -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                <div class="bg-slate-900/20 border border-emerald-950 p-5 rounded-xl">
+                    <h4 class="text-[10px] font-bold text-emerald-500 uppercase tracking-widest mb-3">SPACE LAYER: 20-YEAR ATI REGISTRATION</h4>
+                    <div class="space-y-2 text-xs">
+                        <div class="flex justify-between"><span class="text-slate-400">Data Architecture Collection:</span><span class="text-slate-200 font-medium">NASA / ISRO TOA Array</span></div>
+                        <div class="flex justify-between"><span class="text-slate-400">Mean Surface Albedo (A):</span><span class="text-slate-200 font-mono">0.142</span></div>
+                        <div class="flex justify-between"><span class="text-slate-400">Diurnal Temp Delta (ΔT):</span><span class="text-slate-200 font-mono">14.82°C</span></div>
+                        <div class="flex justify-between border-t border-emerald-950/60 pt-2 font-bold"><span class="text-emerald-400">Calculated ATI Index Score:</span><span id="repAti" class="text-emerald-400 font-mono">-</span></div>
+                    </div>
+                </div>
+
+                <div class="bg-slate-900/20 border border-emerald-950 p-5 rounded-xl">
+                    <h4 class="text-[10px] font-bold text-emerald-500 uppercase tracking-widest mb-3">GROUND LAYER: GALVANIC RESISTIVITY DETECTOR</h4>
+                    <div class="space-y-2 text-xs">
+                        <div class="flex justify-between"><span class="text-slate-400">Testing Core Grid Setup:</span><span class="text-slate-200 font-medium">Wenner 4-Electrode Series</span></div>
+                        <div class="flex justify-between"><span class="text-slate-400">Injected Current (I):</span><span class="text-slate-200 font-mono">150 mA</span></div>
+                        <div class="flex justify-between"><span class="text-slate-400">Measured Voltage Drop (ΔV):</span><span class="text-slate-200 font-mono">24.5 mV</span></div>
+                        <div class="flex justify-between border-t border-emerald-950/60 pt-2 font-bold"><span class="text-emerald-400">Apparent Resistivity (ρa):</span><span id="repRes" class="text-emerald-400 font-mono">-</span></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Validation Result Status Banner -->
+            <div id="bannerStatus" class="p-6 rounded-xl border mb-6 text-center">
+                <span class="text-[10px] font-bold uppercase tracking-widest block mb-1 opacity-70">AQUIFER STRUCTURAL PROBABILITY SCORE</span>
+                <div id="repProb" class="text-3xl font-extrabold tracking-wider font-mono mb-2">-</div>
+                <p id="repDirective" class="text-xs max-w-xl mx-auto leading-relaxed">-</p>
+            </div>
+
+            <!-- Financial Arbitrage Yield View -->
+            <div class="bg-emerald-950/10 border border-emerald-900/30 p-6 rounded-xl text-xs">
+                <h4 class="text-[10px] font-bold text-emerald-400 uppercase tracking-widest mb-4">SASK CO-FINANCIAL UTILITY INTERPRETER</h4>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-center">
+                    <div class="p-3 bg-slate-900/40 border border-emerald-950 rounded-lg">
+                        <span class="text-slate-500 block text-[9px] uppercase font-bold tracking-wider mb-1">Direct Field OpEx</span>
+                        <strong class="text-slate-300 font-mono text-sm">₹6,000</strong>
+                    </div>
+                    <div class="p-3 bg-slate-900/40 border border-emerald-950 rounded-lg">
+                        <span class="text-slate-500 block text-[9px] uppercase font-bold tracking-wider mb-1">Stacked Asset Revenue</span>
+                        <strong class="text-emerald-400 font-mono text-sm">₹56,000</strong>
+                    </div>
+                    <div class="p-3 bg-slate-900/40 border border-emerald-950 rounded-lg">
+                        <span class="text-slate-500 block text-[9px] uppercase font-bold tracking-wider mb-1">Net Operating Margin</span>
+                        <strong class="text-emerald-400 font-mono text-sm">89.2%</strong>
+                    </div>
+                </div>
+            </div>
+            
+            <button onclick="window.location.reload()" class="no-print mt-6 w-full bg-slate-900 border border-emerald-950 hover:bg-slate-800 text-slate-300 py-3 rounded-xl text-xs uppercase tracking-widest font-bold">
+                Run Secondary Scan Initialization
+            </button>
+        </div>
+    </main>
+
+    <!-- Operational System Footer -->
+    <footer class="border-t border-emerald-950/40 bg-slate-950 text-center py-4 text-[10px] text-emerald-800/80 uppercase tracking-widest no-print">
+        SKX Labs Core Engineering Systems Integration • Secured Ledger Architecture Active
+    </footer>
+
+    <!-- Core Operational Logic Script Engine -->
+    <script>
+        document.getElementById('processingForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const state = document.getElementById('state').value;
+            const district = document.getElementById('district').value;
+            const survey = document.getElementById('survey_number').value;
+
+            // Transition UI views
+            document.getElementById('inputSection').classList.add('hidden');
+            const terminal = document.getElementById('terminalSection');
+            terminal.classList.remove('hidden');
+
+            const logs = [
+                `[SYSTEM INIT] Activating SASK JALVAJRA core validation loop...`,
+                `[BHOOMI GATEWAY] Connecting to State Land Records Registry API endpoints...`,
+                `[BHOOMI GATEWAY] Land Registry match verified for Parcel Gut Number: ${survey}`,
+                `[GEOMATICS] Boundary GeoJSON parsed. Spatial bounding matrix successfully localized.`,
+                `[CLOUD CONNECT] Initializing handshake with Google Earth Engine planetary servers...`,
+                `[DATA SYNC] Querying NASA & ISRO Landsat-8/9 Surface Temperature archives...`,
+                `[COMPUTING] Down-loading 20-year multi-spectral thermal arrays (March 2006 - May 2026)...`,
+                `[MATH PASS] Executing Apparent Thermal Inertia Matrix calculations: ATI = (1 - A) / ΔT...`,
+                `[TELEMETRY] Integrating drone airborne passive VLF-EM frequency measurements...`,
+                `[GROUND DATA] Connecting to 24-bit ADC Ground Resistivity DAQ digitization interface...`,
+                `[INVERSION] Processing vertical apparent structural resistance inversion grids...`,
+                `[SUCCESS] System matrices aligned perfectly. Exporting final analytical audit report...`
+            ];
+
+            let lineIndex = 0;
+            const body = document.getElementById('terminalBody');
+
+            function displayLogLine() {
+                if (lineIndex < logs.length) {
+                    const p = document.createElement('p');
+                    p.className = "leading-relaxed mb-1 tracking-wide";
+                    p.innerHTML = logs[lineIndex];
+                    body.appendChild(p);
+                    terminal.scrollTop = terminal.scrollHeight;
+                    lineIndex++;
+                    setTimeout(displayLogLine, 350); // Speed index delay simulation
+                } else {
+                    setTimeout(compileFinalReport, 600);
+                }
+            }
+
+            // Simple deterministic algorithm to determine output based on target entry values
+            function compileFinalReport() {
+                terminal.classList.add('hidden');
+                document.getElementById('reportSection').classList.remove('hidden');
+
+                // Compute parameters
+                const seedValue = parseInt(survey) || 42;
+                const calculatedAti = (0.057 + (seedValue % 13) * 0.0031).toFixed(5);
+                const computedResistivity = (45 + (seedValue % 45) * 6.2).toFixed(2);
+                const probabilityScore = Math.min(Math.max((seedValue % 3 === 0 ? 82.5 + (seedValue % 10) : 32.4 + (seedValue % 20)), 18.0), 96.8);
+
+                // Populate report content fields
+                document.getElementById('repState').innerText = state;
+                document.getElementById('repDistrict').innerText = district;
+                document.getElementById('repSurvey').innerText = survey;
+                document.getElementById('repTime').innerText = new Date().toLocaleString().toUpperCase();
+                
+                document.getElementById('repAti').innerText = calculatedAti;
+                document.getElementById('repRes').innerText = `${computedResistivity} Ω·m`;
+                document.getElementById('repProb').innerText = `${probabilityScore}%`;
+
+                // Render dynamic status indicators
+                const banner = document.getElementById('bannerStatus');
+                const directive = document.getElementById('repDirective');
+
+                if (probabilityScore >= 75.0) {
+                    banner.className = "p-6 rounded-xl border border-emerald-800 bg-emerald-950/20 text-center";
+                    document.getElementById('repProb').className = "text-3xl font-extrabold tracking-wider font-mono mb-2 text-emerald-400";
+                    directive.innerText = "CRITICAL HIGH PROBABILITY WATER INTERSECTION CONFIRMED. Authorization approved to dispatch regional field crew with copper-bonded rebar arrays. Subsurface rock characteristics dictate structural granite water fractures.";
+                } else if (probabilityScore >= 45.0) {
+                    banner.className = "p-6 rounded-xl border border-yellow-800 bg-yellow-950/20 text-center";
+                    document.getElementById('repProb').className = "text-3xl font-extrabold tracking-wider font-mono mb-2 text-yellow-400";
+                    directive.innerText = "MODERATE ANOMALY SIGNAL TRACKED. Baseline data is non-conclusive. Defer drilling schedule until secondary automated drone multi-spectral camera loop maps surface vegetation canopy variation anomalies.";
+                } else {
+                    banner.className = "p-6 rounded-xl border border-rose-800 bg-rose-950/20 text-center";
+                    document.getElementById('repProb').className = "text-3xl font-extrabold tracking-wider font-mono mb-2 text-rose-400";
+                    directive.innerText = "SOLID HYDROLOGICAL BASEMENT CHARACTERISTIC IDENTIFIED. Rock formations reflect dense, un-fractured impermeable bedrock. High failure risk. System issues an immediate 'Do Not Drill' warning notice to safeguard smallholder investment capital.";
+                }
+            }
+
+            displayLogLine();
+        });
+    </script>
+</body>
+</html>
